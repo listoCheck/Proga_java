@@ -1,0 +1,11 @@
+insert 4
+Fafa
+3
+4
+45
+RED
+WATER
+EVIL
+1000
+show
+exit
