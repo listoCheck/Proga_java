@@ -6,21 +6,19 @@ import lab5.file.WriteFile;
  * класс для команды remove greater
  */
 public class RemoveGreater extends Command {
-    private int id;
     /**
      * Конструктор класса RemoveGreater.
      * Устанавливает название команды.
      */
-    public RemoveGreater(int id){
+    public RemoveGreater(){
         super("remove_greater");
-        this.id = id;
     }
     /**
      * Метод для обработки команды и вызова метода команды
      * @param EnteredCommand
      */
     @Override
-    public void execute(String EnteredCommand) {
+    public void execute(String EnteredCommand, int id) {
         if (checkCommand(EnteredCommand)) {
             WriteFile.WRITE_FILE.dragonsWhoNeedToDel(id, true);
         } else {

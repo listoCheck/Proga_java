@@ -35,5 +35,9 @@ public abstract class Command {
      * @param EnteredCommand
      */
     public void execute(String EnteredCommand, int id) {}
-
+    /**
+     * Перегруженный метод для обработки команды и вызова метода команды
+     * @param EnteredCommand
+     */
+    public void execute(String EnteredCommand, String newpath) {}
 }

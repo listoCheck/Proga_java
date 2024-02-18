@@ -6,21 +6,19 @@ import lab5.file.WriteFile;
  * метод для команды remove lower
  */
 public class RemoveLower extends Command {
-    private int id;
     /**
      * Конструктор класса RemoveLower.
      * Устанавливает название команды.
      */
-    public RemoveLower(int id) {
+    public RemoveLower() {
         super("remove_lower");
-        this.id = id;
     }
     /**
      * Метод для обработки команды и вызова метода команды
      * @param EnteredCommand
      */
     @Override
-    public void execute(String EnteredCommand) {
+    public void execute(String EnteredCommand, int id) {
         if (checkCommand(EnteredCommand)) {
             WriteFile.WRITE_FILE.dragonsWhoNeedToDel(id, false);
         } else {

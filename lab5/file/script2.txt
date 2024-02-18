@@ -1,1 +1,2 @@
-execute_script script.txt
+show
+execute C:\Users\admin\IdeaProjects\lab2sem\src\lab5\file\script.txt

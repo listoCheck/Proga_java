@@ -8,5 +8,5 @@ WATER
 EVIL
 1000
 show
-execute_script script2.txt
+execute_script C:\Users\admin\IdeaProjects\lab2sem\src\lab5\file\script2.txt
 exit

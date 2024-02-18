@@ -14,6 +14,7 @@ import java.util.*;
  * Класс, в котором обрабатывается большинство команд, и записываются данные в файл
  */
 public class WriteFile implements Functional {
+    public ArrayList<String> pathes = new ArrayList<>();
     public LinkedHashMap<Integer, String> dragons;
     String[] content = {"name: ", "coordinate_x: ", "coordinate_y: ", "creationdate: ", "age: ", "color: ", "type: ", "character: ", "cave: ", ""};
     String[] type_of_content = {"Введите имя дракона", "Координата х, где находится драков", "Координата у, где находится драков", "Вводится автоматически", "Возраст дракона, больший нуля", "Цвет дракона из предложенных: RED, YELLOW, BROWN", "Тип дракона из предложенных: WATER, UNDERGROUND, AIR, FIRE", "Какой Ваш дракон: CUNNING, EVIL, CHAOTIC_EVIL, FICKLE", "Глубина шахты, в которой обитает дракон, большая, либо равная нулю"};
@@ -65,15 +66,15 @@ public class WriteFile implements Functional {
                 values += currentTime + ",";
             } else {
                 System.out.print("(" + type_of_content[i] + ") " + content[i]);
-                String value;
-                do {
+                String value = sc.nextLine();
+                while (!new ComandCheck().check(i, value)) {
                     value = sc.nextLine();
                     if (i == 5 || i == 6 || i == 7){
                        value.toUpperCase(Locale.ROOT);
                     }
                     values += value + ",";
                     System.out.println(value);
-                } while (!new ComandCheck().check(i, value));
+                }
             }
         }
         //writeXmlFile(values);

@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
 import java.util.Set;
@@ -16,6 +17,7 @@ import java.util.Set;
 public class Console {
     ZonedDateTime currentTime = ZonedDateTime.now();
     LinkedHashMap<String, Command> commands = new LinkedHashMap<>();
+
     int key;
     String path;
     public Console(){
@@ -27,10 +29,10 @@ public class Console {
         commands.put("remove", new Remove());
         commands.put("save", new Save());
         commands.put("clear", new Clear());
-        commands.put("execute_script", new ExecuteScript(path));
-        commands.put("remove_greater", new RemoveGreater(key));
-        commands.put("remove_lower", new RemoveLower(key));
-        commands.put("remove_lower_key", new RemoveLowerKey(key));
+        commands.put("execute_script", new ExecuteScript());
+        commands.put("remove_greater", new RemoveGreater());
+        commands.put("remove_lower", new RemoveLower());
+        commands.put("remove_lower_key", new RemoveLowerKey());
         commands.put("min_by_name", new MinByName());
         commands.put("print_field_descending_type", new PrintFieldDescendingType());
         commands.put("print_field_descending_character", new PrintFieldDescendingCharacter());}
@@ -41,6 +43,8 @@ public class Console {
      * @param path
      */
     public void start(boolean script, String path) {
+        //System.out.println(path);
+        WriteFile.WRITE_FILE.pathes.add(path);
         Scanner sc = new Scanner(System.in);
         if (!script) {
             while (true) {
@@ -52,6 +56,7 @@ public class Console {
                 String line;
                 String values = "";
                 while ((line = reader.readLine()) != null) {
+                    //System.out.println("afafafafafafaf " + line.split(" ")[1]);
                     if (line.contains("insert")){
                         for (int i = 0; i <= 8; i++) {
                             if (i == 3) {
@@ -61,7 +66,7 @@ public class Console {
                             }
                         }
                         WriteFile.WRITE_FILE.addNew(Integer.parseInt(line.substring(7)), values);
-                    }else if (line.contains("execute_script") && line.contains(path)){
+                    }else if (line.contains("execute_script") && WriteFile.WRITE_FILE.pathes.contains(line.split(" ")[1])){
                         System.out.println("будет рекурсия, так нельзя");
                     }else{
                         System.out.println(line);
@@ -99,9 +104,9 @@ public class Console {
         }
         else if (commands.containsKey(line)) {
             commands.get(line).execute(line);
-        }else if (line.contains("execute")){
+        }else if (line.contains("execute_script")){
             path = line.split(" ")[1];
-            commands.get(line.split(" ")[0]).execute(line.split(" ")[0]);
+            commands.get(line.split(" ")[0]).execute(line.split(" ")[0], path);
         }else{
             System.out.println("Команда не найдена");
         }
