@@ -142,6 +142,27 @@ public class WriteFile implements Functional {
      * @param up
      */
     public void dragonsWhoNeedToDel(int id, boolean up) {
+        int l = dragons.get(id).length();
+        //System.out.println("remove");
+        Set<Integer> keys = dragons.keySet();
+        ArrayList<String> dragonstr = new ArrayList<>();
+        for (Integer key : keys){
+            dragonstr.add(dragons.get(key));
+        }
+        Comparator<String> lengthComparator = Comparator.comparingInt(String::length);
+        dragonstr.sort(lengthComparator);
+
+        if (up) {
+            System.out.println(l);
+            dragonstr.removeIf(element -> element.length() > l);
+            //System.out.println("remove1");
+        }else {
+            dragonstr.removeIf(element -> element.length() < l);
+        }
+        for (String i : dragonstr){
+            System.out.println(i + " " + i.length());
+        }
+        /*
         Set<Integer> keys = dragons.keySet();
         ArrayList<Integer> ids = new ArrayList<>();
         if (up) {
@@ -164,6 +185,7 @@ public class WriteFile implements Functional {
             }
         }
         delDragon(ids);
+        */
     }
 
     /**

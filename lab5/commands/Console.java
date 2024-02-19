@@ -93,8 +93,8 @@ public class Console {
                     System.out.println("Проблема с индексом");
                 }else {
                     //key = Integer.parseInt(line.split(" ")[1]);
-                    //System.out.println(key);
-                    //System.out.println(commands.get(line.split(" ")[0]) + " " + line.split(" ")[0]);
+                    //System.out.println("hello");
+                    System.out.println(Integer.parseInt(line.split(" ")[1]));
                     commands.get(line.split(" ")[0]).execute(line.split(" ")[0], Integer.parseInt(line.split(" ")[1]));
                 }
             }catch (NumberFormatException e){
