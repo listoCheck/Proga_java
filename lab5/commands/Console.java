@@ -35,7 +35,9 @@ public class Console {
         commands.put("remove_lower_key", new RemoveLowerKey());
         commands.put("min_by_name", new MinByName());
         commands.put("print_field_descending_type", new PrintFieldDescendingType());
-        commands.put("print_field_descending_character", new PrintFieldDescendingCharacter());}
+        commands.put("print_field_descending_character", new PrintFieldDescendingCharacter());
+
+    }
 
     /**
      * Метод, в котором находится бесконечный цикл с ожиданием ввода новой строки
@@ -43,13 +45,18 @@ public class Console {
      * @param path
      */
     public void start(boolean script, String path) {
+        Set<String> keys = commands.keySet();
         //System.out.println(path);
         WriteFile.WRITE_FILE.pathes.add(path);
         Scanner sc = new Scanner(System.in);
         if (!script) {
             while (true) {
                 String line = sc.nextLine();
-                commands_ref(line);
+                if (keys.contains(line.split(" ")[0])){
+                    commands_ref(line);
+                }else{
+                    System.out.println("Команда не найдна");
+                }
             }
         } else{
             try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
