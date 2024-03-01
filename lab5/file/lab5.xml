@@ -1,72 +1,86 @@
 <Dragons>
-	<Dragon_2>
+	<Dragon>
 		<id>2</id>
 		<name>ASff</name>
 		<coordinates>
 			<x>342.0</x>
 			<y>56.0</y>
 		</coordinates>
-		<creationdate>2024-02-17T12:05:46.983946100+03:00[Europe/Moscow]</creationdate>
+		<creationdate>2024-03-01T21:09:09.880789100+03:00[Europe/Moscow]</creationdate>
 		<age>345</age>
 		<color>RED</color>
 		<type>WATER</type>
 		<character>EVIL</character>
 		<cave>3245</cave>
-	</Dragon_2>
-	<Dragon_1>
+	</Dragon>
+	<Dragon>
 		<id>1</id>
 		<name>Arstsg</name>
 		<coordinates>
 			<x>324.0</x>
 			<y>56.0</y>
 		</coordinates>
-		<creationdate>2024-02-17T12:05:46.998942800+03:00[Europe/Moscow]</creationdate>
+		<creationdate>2024-03-01T21:09:09.897788400+03:00[Europe/Moscow]</creationdate>
 		<age>324</age>
 		<color>RED</color>
 		<type>AIR</type>
 		<character>FICKLE</character>
 		<cave>34</cave>
-	</Dragon_1>
-	<Dragon_3>
+	</Dragon>
+	<Dragon>
 		<id>3</id>
 		<name>a</name>
 		<coordinates>
 			<x>234.0</x>
 			<y>3245.0</y>
 		</coordinates>
-		<creationdate>2024-02-17T12:05:46.999943600+03:00[Europe/Moscow]</creationdate>
+		<creationdate>2024-03-01T21:09:09.897788400+03:00[Europe/Moscow]</creationdate>
 		<age>546</age>
 		<color>RED</color>
 		<type>AIR</type>
 		<character>FICKLE</character>
 		<cave>34</cave>
-	</Dragon_3>
-	<Dragon_5>
+	</Dragon>
+	<Dragon>
 		<id>5</id>
 		<name>Dragon</name>
 		<coordinates>
 			<x>3.0</x>
 			<y>324.0</y>
 		</coordinates>
-		<creationdate>2024-02-17T12:05:46.999943600+03:00[Europe/Moscow]</creationdate>
+		<creationdate>2024-03-01T21:09:09.897788400+03:00[Europe/Moscow]</creationdate>
 		<age>45</age>
 		<color>RED</color>
 		<type>WATER</type>
 		<character>EVIL</character>
 		<cave>43</cave>
-	</Dragon_5>
-	<Dragon_4>
+	</Dragon>
+	<Dragon>
 		<id>4</id>
 		<name>AFAf</name>
 		<coordinates>
 			<x>324.0</x>
 			<y>67.0</y>
 		</coordinates>
-		<creationdate>2024-02-17T12:05:46.999943600+03:00[Europe/Moscow]</creationdate>
+		<creationdate>2024-03-01T21:09:09.898785600+03:00[Europe/Moscow]</creationdate>
 		<age>65</age>
 		<color>YELLOW</color>
 		<type>AIR</type>
 		<character>FICKLE</character>
 		<cave>435</cave>
-	</Dragon_4>
+	</Dragon>
+	<Dragon>
+		<id>34</id>
+		<name>325</name>
+		<coordinates>
+			<x>-324.0</x>
+			<y>234.0</y>
+		</coordinates>
+		<creationdate>2024-03-01T21:09:09.898785600+03:00[Europe/Moscow]</creationdate>
+		<age>324</age>
+		<color>RED</color>
+		<type>WATER</type>
+		<character>EVIL</character>
+		<cave>243</cave>
+	</Dragon>
 </Dragons>

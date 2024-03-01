@@ -26,9 +26,7 @@ public class ComandCheck {
         }  if (id == 1) { // x
             try {
                 int x = (int) Double.parseDouble(data);
-                if (!(x > 0 || x <= 0)){
-                    return false;
-                }
+                System.out.println(x);
             } catch (NumberFormatException e) {
                 System.out.println("значение x должно быть integer");
                 return false;
@@ -36,9 +34,7 @@ public class ComandCheck {
         }  if (id == 2) { // y
             try {
                 int y = (int) Double.parseDouble(data);
-                if (!(y > 0 || y <= 0)){
-                    return false;
-                }
+                System.out.println(y);
             } catch (NumberFormatException e) {
                 System.out.println("значение y должно быть integer");
                 return false;

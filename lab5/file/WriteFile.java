@@ -26,7 +26,7 @@ public class WriteFile implements Functional {
      */
     public void WriteFileInMain() {
         ReadFile rf = new ReadFile();
-        this.dragons = rf.readXml();
+        dragons = rf.readXml();
         //System.out.println(dragons);
     }
     /**
@@ -67,13 +67,14 @@ public class WriteFile implements Functional {
             } else {
                 System.out.print("(" + type_of_content[i] + ") " + content[i]);
                 String value = sc.nextLine();
-                while (!new ComandCheck().check(i, value)) {
-                    value = sc.nextLine();
-                    if (i == 5 || i == 6 || i == 7){
-                       value.toUpperCase(Locale.ROOT);
+                while (true){
+                    if (new ComandCheck().check(i, value)) {
+                        values += value + ",";
+                        System.out.println(values);
+                        break;
+                    }else{
+                        value = sc.nextLine();
                     }
-                    values += value + ",";
-                    System.out.println(value);
                 }
             }
         }
