@@ -24,7 +24,7 @@ public class ReadFile {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 //System.out.println(line.contains("\t</Dragon_"));
-                if (line.contains("\t</Dragon_") && !info.isEmpty()){
+                if (line.contains("\t</Dragon") && !info.isEmpty()){
                     //System.out.println(info);
                     String dragon = info.split(",")[0];
                     dragons.put(Integer.parseInt(dragon), info.substring(dragon.length() + 1));
