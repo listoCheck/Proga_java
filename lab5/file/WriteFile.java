@@ -1,7 +1,6 @@
 package lab5.file;
 
 import lab5.commands.ComandCheck;
-import lab5.commands.Console;
 import lab5.ifmo.*;
 
 import java.io.FileNotFoundException;
@@ -13,7 +12,7 @@ import java.util.*;
 /**
  * Класс, в котором обрабатывается большинство команд, и записываются данные в файл
  */
-public class WriteFile implements Functional {
+public class WriteFile implements Functional{
     public ArrayList<String> pathes = new ArrayList<>();
     public LinkedHashMap<Integer, String> dragons;
     String[] content = {"name: ", "coordinate_x: ", "coordinate_y: ", "creationdate: ", "age: ", "color: ", "type: ", "character: ", "cave: ", ""};
@@ -70,7 +69,7 @@ public class WriteFile implements Functional {
                 while (true){
                     if (new ComandCheck().check(i, value)) {
                         values += value + ",";
-                        System.out.println(values);
+                        //System.out.println(values);
                         break;
                     }else{
                         value = sc.nextLine();
@@ -163,30 +162,6 @@ public class WriteFile implements Functional {
         for (String i : dragonstr){
             System.out.println(i + " " + i.length());
         }
-        /*
-        Set<Integer> keys = dragons.keySet();
-        ArrayList<Integer> ids = new ArrayList<>();
-        if (up) {
-            for (Integer key : keys) {
-                if (key == id) {
-                    break;
-                } else {
-                    ids.add(key);
-                }
-            }
-        } else {
-            boolean flag = false;
-            for (Integer key : keys) {
-                if (key == id) {
-                    flag = true;
-                }
-                if (flag && id != key) {
-                    ids.add(key);
-                }
-            }
-        }
-        delDragon(ids);
-        */
     }
 
     /**
@@ -231,9 +206,9 @@ public class WriteFile implements Functional {
             //System.out.println(types.get(type) + type);
             types.put(type, types.get(type) + 1);
         }
-        System.out.println(types);
+        //System.out.println(types);
         ArrayList<String> sorted = bubbleSort(types);
-        System.out.println(sorted);
+        //System.out.println(sorted);
         for (String type : sorted) {
             for (Integer key : keys) {
                 if (dragons.get(key).split(",")[6].equals(type)) {
@@ -297,6 +272,7 @@ public class WriteFile implements Functional {
      * метод для записи в xml файл
      */
     public void writeXmlFile() {
+
         try (FileWriter writer = new FileWriter("C:\\Users\\admin\\IdeaProjects\\lab2sem\\src\\lab5\\file\\lab5.xml")) {
             writer.write("<Dragons>\n");
             Set<Integer> keys = dragons.keySet();
@@ -325,4 +301,5 @@ public class WriteFile implements Functional {
             System.out.println("Ошибка при записи в файл: " + e.getMessage());
         }
     }
+
 }

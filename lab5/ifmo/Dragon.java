@@ -1,7 +1,7 @@
 package lab5.ifmo;
 
 import java.time.ZonedDateTime;
-public class Dragon implements Comparable{
+public class Dragon implements Comparable<Dragon> {
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
@@ -126,7 +126,7 @@ public class Dragon implements Comparable{
     }
 
     @Override
-    public int compareTo(Object o) {
-        return 0;
+    public int compareTo(Dragon other) {
+        return Integer.compare(this.id, other.id);
     }
 }

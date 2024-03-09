@@ -17,10 +17,9 @@ import java.util.Set;
 public class Console {
     ZonedDateTime currentTime = ZonedDateTime.now();
     LinkedHashMap<String, Command> commands = new LinkedHashMap<>();
-
-    int key;
     String path;
-    public Console(){
+
+    public Console() {
         commands.put("help", new Help());
         commands.put("show", new Show());
         commands.put("exit", new Exit());
@@ -36,35 +35,31 @@ public class Console {
         commands.put("min_by_name", new MinByName());
         commands.put("print_field_descending_type", new PrintFieldDescendingType());
         commands.put("print_field_descending_character", new PrintFieldDescendingCharacter());
-
     }
 
     /**
      * Метод, в котором находится бесконечный цикл с ожиданием ввода новой строки
+     *
      * @param script
      * @param path
      */
-    public void start(boolean script, String path) {
+    public void start(String line, boolean script, String path) {
         Set<String> keys = commands.keySet();
         //System.out.println(path);
         WriteFile.WRITE_FILE.pathes.add(path);
-        Scanner sc = new Scanner(System.in);
         if (!script) {
-            while (true) {
-                String line = sc.nextLine();
-                if (keys.contains(line.split(" ")[0])){
-                    commands_ref(line);
-                }else{
-                    System.out.println("Команда не найдна");
-                }
+            if (keys.contains(line.split(" ")[0])) {
+                commands_ref(line);
+            } else {
+                System.out.println("Команда не найдна");
             }
-        } else{
+        } else {
             try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-                String line;
+                String line1;
                 String values = "";
-                while ((line = reader.readLine()) != null) {
+                while ((line1 = reader.readLine()) != null) {
                     //System.out.println("afafafafafafaf " + line.split(" ")[1]);
-                    if (line.contains("insert")){
+                    if (line1.contains("insert")) {
                         for (int i = 0; i <= 8; i++) {
                             if (i == 3) {
                                 values += currentTime + ",";
@@ -72,12 +67,12 @@ public class Console {
                                 values += reader.readLine() + ",";
                             }
                         }
-                        WriteFile.WRITE_FILE.addNew(Integer.parseInt(line.substring(7)), values);
-                    }else if (line.contains("execute_script") && WriteFile.WRITE_FILE.pathes.contains(line.split(" ")[1])){
+                        WriteFile.WRITE_FILE.addNew(Integer.parseInt(line1.substring(7)), values);
+                    } else if (line1.contains("execute_script") && WriteFile.WRITE_FILE.pathes.contains(line1.split(" ")[1])) {
                         System.out.println("будет рекурсия, так нельзя");
-                    }else{
-                        System.out.println(line);
-                        commands_ref(line);
+                    } else {
+                        System.out.println(line1);
+                        commands_ref(line1);
                     }
                 }
             } catch (IOException e) {
@@ -88,34 +83,36 @@ public class Console {
 
     /**
      * метод, который сравнивает введенную строку со всеми командами
+     *
      * @param line
      */
     void commands_ref(String line) {
         Set<Integer> keys = WriteFile.WRITE_FILE.dragons.keySet();
         //System.out.println(line);
-        if (line.contains(" ") && !line.contains("execute")){
-            try{
+        if (line.contains(" ") && !line.contains("execute")) {
+            try {
                 //System.out.println((keys.contains(Integer.parseInt(line.split(" ")[1])) && line.contains("insert") || Integer.parseInt(line.split(" ")[1]) < 0));
-                if (keys.contains(Integer.parseInt(line.split(" ")[1])) && line.contains("insert") || Integer.parseInt(line.split(" ")[1]) < 0){
+                if (keys.contains(Integer.parseInt(line.split(" ")[1])) && line.contains("insert") || Integer.parseInt(line.split(" ")[1]) < 0) {
+                    System.out.println("Проблема с индексом1");
+                } else if (!keys.contains(Integer.parseInt(line.split(" ")[1])) && line.contains("update")) {
                     System.out.println("Проблема с индексом");
-                }else {
+                } else {
                     //key = Integer.parseInt(line.split(" ")[1]);
                     //System.out.println("hello");
                     System.out.println(Integer.parseInt(line.split(" ")[1]));
                     commands.get(line.split(" ")[0]).execute(line.split(" ")[0], Integer.parseInt(line.split(" ")[1]));
                 }
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.out.println("под id подразумевается число большее нуля");
             }
 
-        }
-        else if (commands.containsKey(line)) {
+        } else if (commands.containsKey(line)) {
             commands.get(line).execute(line);
-        }else if (line.contains("execute_script")){
+        } else if (line.contains("execute_script")) {
             path = line.split(" ")[1];
             commands.get(line.split(" ")[0]).execute(line.split(" ")[0], path);
-        }else{
-            System.out.println("Команда не найдена");
+        } else {
+            System.out.println("Проблема с командой, возможная рекурсия");
         }
 
 

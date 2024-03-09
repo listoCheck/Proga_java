@@ -1,8 +1,10 @@
 package lab5.file;
 
+import lab5.ifmo.Dragon;
+
 import java.util.ArrayList;
 
-public interface Functional {
+public interface Functional{
     void delDragon();
 
     void delDragon(ArrayList<Integer> key);

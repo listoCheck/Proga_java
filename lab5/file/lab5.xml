@@ -1,86 +1,30 @@
 <Dragons>
 	<Dragon>
 		<id>2</id>
-		<name>ASff</name>
-		<coordinates>
-			<x>342.0</x>
-			<y>56.0</y>
-		</coordinates>
-		<creationdate>2024-03-01T21:09:09.880789100+03:00[Europe/Moscow]</creationdate>
-		<age>345</age>
-		<color>RED</color>
-		<type>WATER</type>
-		<character>EVIL</character>
-		<cave>3245</cave>
-	</Dragon>
-	<Dragon>
-		<id>1</id>
-		<name>Arstsg</name>
+		<name>gkfd</name>
 		<coordinates>
 			<x>324.0</x>
-			<y>56.0</y>
+			<y>-234.0</y>
 		</coordinates>
-		<creationdate>2024-03-01T21:09:09.897788400+03:00[Europe/Moscow]</creationdate>
-		<age>324</age>
-		<color>RED</color>
-		<type>AIR</type>
-		<character>FICKLE</character>
-		<cave>34</cave>
-	</Dragon>
-	<Dragon>
-		<id>3</id>
-		<name>a</name>
-		<coordinates>
-			<x>234.0</x>
-			<y>3245.0</y>
-		</coordinates>
-		<creationdate>2024-03-01T21:09:09.897788400+03:00[Europe/Moscow]</creationdate>
-		<age>546</age>
-		<color>RED</color>
-		<type>AIR</type>
-		<character>FICKLE</character>
-		<cave>34</cave>
-	</Dragon>
-	<Dragon>
-		<id>5</id>
-		<name>Dragon</name>
-		<coordinates>
-			<x>3.0</x>
-			<y>324.0</y>
-		</coordinates>
-		<creationdate>2024-03-01T21:09:09.897788400+03:00[Europe/Moscow]</creationdate>
-		<age>45</age>
-		<color>RED</color>
-		<type>WATER</type>
-		<character>EVIL</character>
-		<cave>43</cave>
-	</Dragon>
-	<Dragon>
-		<id>4</id>
-		<name>AFAf</name>
-		<coordinates>
-			<x>324.0</x>
-			<y>67.0</y>
-		</coordinates>
-		<creationdate>2024-03-01T21:09:09.898785600+03:00[Europe/Moscow]</creationdate>
-		<age>65</age>
+		<creationdate>2024-03-09T14:00:58.466418700+03:00[Europe/Moscow]</creationdate>
+		<age>2553</age>
 		<color>YELLOW</color>
 		<type>AIR</type>
 		<character>FICKLE</character>
-		<cave>435</cave>
+		<cave>324</cave>
 	</Dragon>
 	<Dragon>
-		<id>34</id>
-		<name>325</name>
+		<id>324</id>
+		<name>DAkfek f</name>
 		<coordinates>
-			<x>-324.0</x>
-			<y>234.0</y>
+			<x>234.0</x>
+			<y>-234.0</y>
 		</coordinates>
-		<creationdate>2024-03-01T21:09:09.898785600+03:00[Europe/Moscow]</creationdate>
-		<age>324</age>
+		<creationdate>2024-03-09T14:00:58.479418200+03:00[Europe/Moscow]</creationdate>
+		<age>234</age>
 		<color>RED</color>
 		<type>WATER</type>
 		<character>EVIL</character>
-		<cave>243</cave>
+		<cave>324</cave>
 	</Dragon>
 </Dragons>

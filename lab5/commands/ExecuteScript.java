@@ -18,7 +18,7 @@ public class ExecuteScript extends Command{
     public void execute(String EnteredCommand, String file_path) {
         if (checkCommand(EnteredCommand)) {
             System.out.println("Найден путь: " + file_path);
-            new Console().start(true, file_path);
+            new Console().start("", true, file_path);
         } else {
             System.out.println("Команда не найдена. Введите \"help\" для справки");
         }
