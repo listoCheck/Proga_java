@@ -19,29 +19,43 @@ public class ServerToClient {
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         serverSocketChannel.bind(new InetSocketAddress(port));
         System.out.println("Server started. Waiting for connection...");
+        boolean flag = true;
+        while (flag) { // Бесконечный цикл ожидания новых подключений
+            SocketChannel clientSocketChannel = serverSocketChannel.accept();
+            System.out.println("Connection established with client.");
 
-        SocketChannel clientSocketChannel = serverSocketChannel.accept();
-        System.out.println("Connection established with client.");
+            ByteBuffer buffer = ByteBuffer.allocate(1024);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
-        ByteBuffer buffer = ByteBuffer.allocate(1024);
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            int bytesRead;
+            while ((bytesRead = clientSocketChannel.read(buffer)) > 0) {
+                buffer.flip();
+                byteArrayOutputStream.write(buffer.array(), 0, bytesRead);
+                buffer.clear();
 
-        int bytesRead;
-        while ((bytesRead = clientSocketChannel.read(buffer)) > 0) {
-            buffer.flip();
-            byteArrayOutputStream.write(buffer.array(), 0, bytesRead);
-            buffer.clear();
+                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+                ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+                String message = (String) objectInputStream.readObject();
+                System.out.println("Received message from client: " + message);
+
+                if (message.equals("exit")) { // Проверяем, если клиент отправил команду "exit"
+                    flag = false;
+                    break; // Выходим из внутреннего цикла чтения команд
+                } else {
+                    c.start(message, false, "");
+                }
+
+                byteArrayOutputStream.reset();
+                byteArrayInputStream.close();
+                objectInputStream.close();
+            }
+
+            // Закрываем потоки для текущего клиента
+            clientSocketChannel.close();
+            System.out.println("Connection with client closed.");
         }
 
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
-        ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
-        String message = (String) objectInputStream.readObject();
-        c.start(message, false, "");
-        objectInputStream.close();
-        byteArrayInputStream.close();
-        byteArrayOutputStream.close();
-        clientSocketChannel.close();
+        // Закрываем серверный сокет (этот код никогда не выполнится)
         serverSocketChannel.close();
-
     }
 }

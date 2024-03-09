@@ -28,17 +28,20 @@ public class Client {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
             Scanner sc = new Scanner(System.in);
-            message = sc.nextLine();
+            while(true) {
+                message = sc.nextLine();
+                objectOutputStream.writeObject(message);
+                objectOutputStream.flush();
+                sock.write(ByteBuffer.wrap(byteArrayOutputStream.toByteArray()));
+                System.out.println("Message sent to server.");
 
-            objectOutputStream.writeObject(message);
-            objectOutputStream.flush();
-
-            sock.write(ByteBuffer.wrap(byteArrayOutputStream.toByteArray()));
-            System.out.println("Message sent to server.");
-
-            objectOutputStream.close();
-            byteArrayOutputStream.close();
-            sock.close();
+                if (message.equals("exit")) {
+                    objectOutputStream.close();
+                    byteArrayOutputStream.close();
+                    sock.close();
+                    break;
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
