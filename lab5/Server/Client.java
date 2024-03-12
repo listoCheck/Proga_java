@@ -1,5 +1,5 @@
 package lab5.Server;
-import lab5.commands.Console;
+import lab5.Server.commands.Console;
 
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;

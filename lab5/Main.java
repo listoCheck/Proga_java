@@ -1,8 +1,5 @@
 package lab5;
-import lab5.Server.Client;
-import lab5.Server.ServerToClient;
-import lab5.commands.Console;
-import lab5.file.WriteFile;
+import lab5.Server.file.WriteFile;
 
 import java.io.IOException;
 
@@ -16,7 +13,6 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        WriteFile.WRITE_FILE.WriteFileInMain();
-        ServerToClient.startServer();
+
     }
 }
