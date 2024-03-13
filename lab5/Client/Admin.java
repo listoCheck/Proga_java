@@ -12,10 +12,12 @@ public class Admin {
     public static boolean flag = true;
     private static BufferedWriter out; // поток записи в сокет
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         final int MAX_RETRIES = 3;
         int retries = 0;
         NewDragon newDragon = new NewDragon();
+        System.out.println("Здравствуйте, админ!");
+        System.out.println("Вы что-то хотели сказать? Введите это здесь:");
         while (retries < MAX_RETRIES && flag) {
             try {
                 clientSocket = new Socket("localhost", 6789); // этой строкой мы запрашиваем
@@ -26,18 +28,14 @@ public class Admin {
                 // писать туда же
                 out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
 
-                System.out.println("Здравствуйте, админ!");
-                System.out.println("Вы что-то хотели сказать? Введите это здесь:");
-
-
                 while (true) {
                     // Ждем пока клиент что-нибудь напишет в консоль
                     String word = scanner.nextLine();
-                    if (word.contains("insert") && (word.split(" ").length > 1 && !word.split(" ")[1].isEmpty())){
+                    if (word.contains("insert") && (word.split(" ").length > 1 && !word.split(" ")[1].isEmpty())) {
                         //out.write(word);
                         out.write(word + " :::" + newDragon.addNew());
                     }
-                    if (word.contains("update") && (word.split(" ").length > 1 && !word.split(" ")[1].isEmpty())){
+                    if (word.contains("update") && (word.split(" ").length > 1 && !word.split(" ")[1].isEmpty())) {
                         out.write(word + " :::" + newDragon.addNew());
                     }
                     out.write(word + "\n"); // отправляем сообщение на сервер
@@ -50,9 +48,9 @@ public class Admin {
                     }
                     String serverWord = in.readLine(); // ждем, что скажет сервер
                     System.out.println("Ответ сервера: "); // получив - выводим на экран
-                    if (serverWord == null){
+                    if (serverWord == null) {
                         System.out.println("Просим прощения, непредвиденная ошибка");
-                    }else {
+                    } else {
                         for (String i : serverWord.split("::")) {
                             System.out.println(i);
                         }

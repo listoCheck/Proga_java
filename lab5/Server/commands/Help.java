@@ -1,6 +1,8 @@
 package lab5.Server.commands;
 
 
+import lab5.Server.Server;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -43,6 +45,7 @@ public class Help extends Command{
             Set<Map.Entry<String, String>> pairs = commands.entrySet();
             for (Map.Entry<String, String> i : pairs) {
                 System.out.println(i.getKey() + ": " + i.getValue());
+                Server.out_to_client += (i.getKey() + ": " + i.getValue()) + "::";
             }
         } else {
             System.out.println("Команда не найдена. Введите \"help\" для справки");

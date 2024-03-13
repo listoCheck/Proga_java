@@ -53,7 +53,7 @@ public class Console {
             if (keys.contains(line.split(" ")[0])) {
                 commands_ref(line);
             } else {
-                Server.SERVER.out_to_client += ("Команда не найдна");
+                Server.out_to_client += ("Команда не найдна");
             }
         } else {
             try (BufferedReader reader = new BufferedReader(new FileReader(path))) {

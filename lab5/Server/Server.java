@@ -5,19 +5,21 @@ import lab5.Server.file.WriteFile;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Server {
 
     private static ServerSocket server; // серверсокет
-    public final static Server SERVER = new Server();
     private static BufferedReader in; // поток чтения из сокета
     private static BufferedWriter out; // поток записи в сокет
-    public String out_to_client = "";
+
+    static ArrayList<Socket> cookies = new ArrayList<>();
+    public static String out_to_client = "";
 
     public static void main(String[] args) {
-        //  Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         WriteFile.WRITE_FILE.WriteFileInMain();
         try {
             server = new ServerSocket(6789); // серверсокет прослушивает порт 4004
@@ -25,14 +27,16 @@ public class Server {
 
             while (true) {
                 Socket clientSocket = server.accept(); // accept() будет ждать пока
-                //кто-нибудь не захочет подключиться
-                new Thread(new ClientHandler(clientSocket)).start(); // создаем и запускаем новый поток для обработки клиента
+                cookies.add(clientSocket);
+                for (Socket client : cookies) {
+                    new Thread(new ClientHandler(client)).start(); // создаем и запускаем новый поток для обработки клиента
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
             try {
-                if (server != null) {
+                if (server != null || sc.nextLine().equals("exit")) {
                     server.close(); // закрываем серверный сокет при завершении работы
                 }
             } catch (IOException e) {
@@ -40,18 +44,13 @@ public class Server {
             }
         }
     }
-    public static void out(String str) throws IOException {
-        //System.out.println("***" + str);
-        out.write(str);
-    }
 
-    static class ClientHandler implements Runnable {
+    public static class ClientHandler implements Runnable {
         private Socket clientSocket; //сокет для общения
-
 
         public ClientHandler(Socket socket) {
             this.clientSocket = socket;
-            System.out.println("Клиент подключился");
+            System.out.println("Клиент подключился по сокету: " + socket.getPort());
         }
 
         @Override
@@ -61,29 +60,21 @@ public class Server {
                 out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
 
                 String word;
-                while ((word = in.readLine()) != null) { // Ждем сообщений от клиента
+                while ((word = in.readLine()) != null) {
+                    in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                    out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
                     lab5.Server.commands.Console console = new lab5.Server.commands.Console();
-                    System.out.println("Получено сообщение от клиента: " + word);
-                    console.start(word, false, "");// Обработка полученного сообщения
-                    String response = "Привет, это Сервер! Подтверждаю, вы написали: " + word + "\n";
-                    //out.write(response); // отправляем ответ клиенту
-                    //System.out.println(WriteFile.WRITE_FILE.out_to_client);
-                    //Thread.sleep(2000);
-                    String answer = SERVER.out_to_client + "\n";
-                    //out.write(Arrays.toString(answer.getBytes())); // отправляем ответ клиенту
-                    //System.out.println(answer);
-                    out(answer);
-                    //out.write("end");
-                    SERVER.out_to_client = "";
-                    out.flush(); // выталкиваем все из буфера
+                    System.out.println("Получено сообщение от клиента: " + clientSocket.getPort() + " " + word);
+                    console.start(word, false, "");
+                    out.write(out_to_client + "\n");
+                    out_to_client = "";
+                    out.flush();
                     if (word.equals("exit")) {
                         System.out.println("Клиент отключился");
                         break;
                     }
                 }
             } catch (IOException e) {
-                // При разрыве соединения клиента будет выброшено исключение IOException.
-                // Мы можем просто вывести сообщение о разрыве и продолжить работу сервера.
                 System.out.println("Ошибка при чтении сообщения от клиента: " + e.getMessage());
             } finally {
                 try {

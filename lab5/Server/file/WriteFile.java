@@ -33,9 +33,9 @@ public class WriteFile implements Functional{
      * @param key
      */
     public void delDragon(ArrayList<Integer> key) {
-      for (Integer i : key){
-          dragons.remove(i);
-      }
+        for (Integer i : key){
+            dragons.remove(i);
+        }
     }
 
     /**
@@ -54,13 +54,13 @@ public class WriteFile implements Functional{
         Set<Integer> keys = dragons.keySet();
         if (string.contains("insert") && !keys.contains(Integer.parseInt(string.split(" ")[1]))){
             dragons.put(Integer.parseInt(string.split(" ")[1]), string.split(":::")[1]);
-            Server.SERVER.out_to_client += dragons.get(Integer.parseInt(string.split(" ")[1]));
+            Server.out_to_client += dragons.get(Integer.parseInt(string.split(" ")[1]));
         }else if(string.contains("update") && keys.contains(Integer.parseInt(string.split(" ")[1]))){
             dragons.remove(Integer.parseInt(string.split(" ")[1]));
             dragons.put(Integer.parseInt(string.split(" ")[1]), string.split(":::")[1]);
-            Server.SERVER.out_to_client += dragons.get(Integer.parseInt(string.split(" ")[1]));
+            Server.out_to_client += dragons.get(Integer.parseInt(string.split(" ")[1]));
         }else{
-            Server.SERVER.out_to_client += "Ошибка с индексом, дракон не создан";
+            Server.out_to_client += "Ошибка с индексом, дракон не создан";
         }
     }
 
@@ -114,7 +114,7 @@ public class WriteFile implements Functional{
     public void addNew(int key, String value) {
         this.dragons.put(key, value);
         System.out.println(value);
-        Server.SERVER.out_to_client +=(value);
+        Server.out_to_client +=(value);
     }
 
     // методы для команды show и min_by_name
@@ -125,16 +125,16 @@ public class WriteFile implements Functional{
     public void printDragons() {
         Set<Integer> keys = dragons.keySet();
         for (Integer key : keys) {
-            Server.SERVER.out_to_client += ("id: " + key);
+            Server.out_to_client += ("id: " + key);
             int number_in_content = 0;
             //System.out.println(dragons);
             for (String dragon_info : this.dragons.get(key).split(",")) {
-                Server.SERVER.out_to_client += (", " + content[number_in_content] + dragon_info);
+                Server.out_to_client += (", " + content[number_in_content] + dragon_info);
                 //System.out.print(dragon_info);
                 number_in_content++;
             }
             //System.out.println();
-            Server.SERVER.out_to_client += "::";
+            Server.out_to_client += "::";
         }
     }
 
@@ -146,10 +146,10 @@ public class WriteFile implements Functional{
     public void printDragons(int id) {
         int number_in_content = 0;
         for (String dragon_info : this.dragons.get(id).split(",")) {
-            Server.SERVER.out_to_client += (content[number_in_content] + dragon_info + " ");
+            Server.out_to_client += (content[number_in_content] + dragon_info + " ");
             number_in_content++;
         }
-        Server.SERVER.out_to_client += "::";
+        Server.out_to_client += "::";
 
     }
 
@@ -312,13 +312,13 @@ public class WriteFile implements Functional{
                 writer.write("\t\t<character>" + dragon.getCharacter() + "</character>\n");
                 writer.write("\t\t<cave>" + dragon.getCave().getDepth() + "</cave>\n");
                 writer.write("\t</Dragon>\n");
-                Server.SERVER.out_to_client += ("Данные успешно записаны в файл") + "::";
+                Server.out_to_client += ("Данные успешно записаны в файл") + "::";
             }
             writer.write("</Dragons>\n");
         } catch (FileNotFoundException e) {
-            Server.SERVER.out_to_client += ("Файл не найден: " + e.getMessage());
+            Server.out_to_client += ("Файл не найден: " + e.getMessage());
         } catch (IOException e) {
-            Server.SERVER.out_to_client += ("Ошибка при записи в файл: " + e.getMessage());
+            Server.out_to_client += ("Ошибка при записи в файл: " + e.getMessage());
         }
     }
 
