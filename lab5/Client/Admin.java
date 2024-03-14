@@ -41,11 +41,6 @@ public class Admin {
                     out.write(word + "\n"); // отправляем сообщение на сервер
                     out.flush();
 
-                    if (word.equals("exit")) {
-                        System.out.println("Клиент был закрыт...");
-                        flag = false;
-                        break;
-                    }
                     String serverWord = in.readLine(); // ждем, что скажет сервер
                     System.out.println("Ответ сервера: "); // получив - выводим на экран
                     if (serverWord == null) {
@@ -54,6 +49,12 @@ public class Admin {
                         for (String i : serverWord.split("::")) {
                             System.out.println(i);
                         }
+                    }
+
+                    if (word.equals("exit")) {
+                        System.out.println("Клиент был закрыт...");
+                        flag = false;
+                        break;
                     }
                 }
             } catch (SocketException e) {

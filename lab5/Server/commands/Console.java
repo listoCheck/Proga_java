@@ -21,7 +21,7 @@ public class Console {
     public Console() {
         commands.put("help", new Help());
         commands.put("show", new Show());
-        //commands.put("exit", new Exit());
+        commands.put("exit", new Exit());
         //commands.put("insert", new Insert());
         //commands.put("update", new Update());
         commands.put("remove", new Remove());

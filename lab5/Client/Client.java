@@ -31,6 +31,11 @@ public class Client {
                 while (true) {
                     // Ждем пока клиент что-нибудь напишет в консоль
                     String word = scanner.nextLine();
+                    if (word.equals("exit")) {
+                        System.out.println("Клиент был закрыт...");
+                        flag = false;
+                        break;
+                    }
                     if (word.contains("insert") && (word.split(" ").length > 1 && !word.split(" ")[1].isEmpty())){
                         //out.write(word);
                         out.write(word + " :::" + newDragon.addNew());
@@ -48,11 +53,6 @@ public class Client {
                         continue;
                     }
 
-                    if (word.equals("exit")) {
-                        System.out.println("Клиент был закрыт...");
-                        flag = false;
-                        break;
-                    }
                     String serverWord = in.readLine(); // ждем, что скажет сервер
                     System.out.println("Ответ сервера: "); // получив - выводим на экран
                     if (serverWord == null){
