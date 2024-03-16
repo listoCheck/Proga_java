@@ -9,7 +9,7 @@ public class Exit extends Command{
      * Устанавливает название команды.
      */
     public Exit(){
-        super("exit");
+        super("exit_server");
     }
     /**
      * Метод для обработки команды и вызова метода команды

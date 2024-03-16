@@ -1,40 +1,63 @@
 package lab5.Server;
 
+import lab5.Server.file.HandleFile;
 import lab5.Server.file.WriteFile;
+import lab5.Server.ifmo.Dragon;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Set;
 
-public class Server {
+public class Server implements Serializable{
 
     private static ServerSocket server; // серверсокет
+    public static FileWriter log;
+    /*
+    static {
+        try {
+            writer = new FileWriter("C:\\Users\\admin\\IdeaProjects\\lab2sem\\src\\lab5\\Server\\log.txt");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+     */
+
     private static BufferedReader in; // поток чтения из сокета
     private static BufferedWriter out; // поток записи в сокет
+
     static ArrayList<Socket> cookies = new ArrayList<>();
     public static String out_to_client = "";
 
+    public Server() throws IOException {
+    }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        //Scanner sc = new Scanner(System.in);
+        log = new FileWriter("C:\\Users\\admin\\IdeaProjects\\lab2sem\\src\\lab5\\Server\\log.txt", true);
+        //try {
+        //FileWriter writer = new FileWriter("C:\\Users\\admin\\IdeaProjects\\lab2sem\\src\\lab5\\Server\\log.txt")
+        //writer.write("Начата запись в файл:\n");
+        //} catch (FileNotFoundException e) {
+        //    Server.out_to_client += ("Файл не найден: " + e.getMessage());
+        //} catch (IOException e) {
+        //    Server.out_to_client += ("Ошибка при записи в файл: " + e.getMessage());
+        //}
         WriteFile.WRITE_FILE.WriteFileInMain();
-
-        // Запрос пользователя на ввод пути к файлу логов
-        //System.out.println("Введите путь к файлу логов:");
-        String logFilePath = "C:\\Users\\admin\\IdeaProjects\\lab2sem\\src\\lab5\\Server\\log.txt";
-
         try {
             server = new ServerSocket(6789); // серверсокет прослушивает порт 4004
             System.out.println("Сервер запущен!");
-            FileWriter writer = new FileWriter(logFilePath, true); // Создание FileWriter для добавления записей в конец файла
+            log.write("Сервер запущен!" + "\n");
+            //writer.write("Сервер запущен!");
             boolean flag = true;
             while (flag) {
                 Socket clientSocket = server.accept(); // accept() будет ждать пока
                 cookies.add(clientSocket);
                 for (Socket client : cookies) {
-                    new Thread(new ClientHandler(client, writer)).start(); // передаем writer в ClientHandler
+                    new Thread(new ClientHandler(client)).start(); // создаем и запускаем новый поток для обработки клиента
                 }
             }
         } catch (IOException e) {
@@ -52,12 +75,11 @@ public class Server {
 
     public static class ClientHandler implements Runnable {
         private Socket clientSocket; //сокет для общения
-        private FileWriter writer; // Поле для FileWriter
 
-        public ClientHandler(Socket socket, FileWriter writer) { // Добавляем FileWriter в конструктор
+        public ClientHandler(Socket socket) throws IOException {
             this.clientSocket = socket;
-            this.writer = writer; // Инициализируем поле writer
             System.out.println("Клиент подключился по сокету: " + socket.getPort());
+            log.write("Клиент подключился по сокету: " + socket.getPort() + "\n");
         }
 
         @Override
@@ -67,20 +89,20 @@ public class Server {
                 out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
 
                 String word;
-                while ((word = in.readLine()) != null) {
+                while ((word = new MyObject(in.readLine()).getName()) != null) {
+                    in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                    out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
                     lab5.Server.commands.Console console = new lab5.Server.commands.Console();
                     System.out.println("Получено сообщение от клиента: " + clientSocket.getPort() + " " + word);
+                    log.write("Получено сообщение от клиента: " + clientSocket.getPort() + " " + word + "\n");
+                    log.flush();
                     console.start(word, false, "");
-
-                    // Логирование команды в файл
-                    writer.write(clientSocket.getPort() + " : " + word + "\n");
-                    writer.flush(); // Очистка буфера, чтобы записать данные в файл
-
-                    out.write(out_to_client + "\n");
+                    out.write(new MyObject(out_to_client).getName() + "\n");
                     out_to_client = "";
                     out.flush();
-                    if (word.equals("exit")) {
+                    if (word.equals("exit_server")) {
                         System.out.println("Клиент отключился");
+                        log.write("Клиент отключился" + "\n");
                         break;
                     }
                 }
@@ -96,9 +118,6 @@ public class Server {
                     }
                     if (out != null) {
                         out.close(); // закрываем поток записи
-                    }
-                    if (writer != null) {
-                        writer.close(); // закрываем FileWriter
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

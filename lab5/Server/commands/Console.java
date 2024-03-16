@@ -21,7 +21,7 @@ public class Console {
     public Console() {
         commands.put("help", new Help());
         commands.put("show", new Show());
-        commands.put("exit", new Exit());
+        commands.put("exit_server", new Exit());
         //commands.put("insert", new Insert());
         //commands.put("update", new Update());
         commands.put("remove", new Remove());
@@ -71,14 +71,16 @@ public class Console {
                         }
                         WriteFile.WRITE_FILE.addNew(Integer.parseInt(line1.substring(7)), values);
                     } else if (line1.contains("execute_script") && WriteFile.WRITE_FILE.pathes.contains(line1.split(" ")[1])) {
-                        System.out.println("будет рекурсия, так нельзя");
+                        Server.out_to_client += ("будет рекурсия, так нельзя");
                     } else {
                         System.out.println(line1);
+                        Server.out_to_client += (line1);
                         commands_ref(line1);
                     }
                 }
             } catch (IOException e) {
                 System.out.println("Ошибка при чтении файла: " + e.getMessage());
+                Server.out_to_client += ("Ошибка при чтении файла: " + e.getMessage());
             }
         }
     }
@@ -96,8 +98,10 @@ public class Console {
                 //System.out.println((keys.contains(Integer.parseInt(line.split(" ")[1])) && line.contains("insert") || Integer.parseInt(line.split(" ")[1]) < 0));
                 if (keys.contains(Integer.parseInt(line.split(" ")[1])) && line.contains("insert") || Integer.parseInt(line.split(" ")[1]) < 0) {
                     System.out.println("Проблема с индексом1");
+                    Server.out_to_client += ("Проблема с индексом1");
                 } else if (!keys.contains(Integer.parseInt(line.split(" ")[1])) && line.contains("update")) {
                     System.out.println("Проблема с индексом");
+                    Server.out_to_client += ("Проблема с индексом");
                 } else {
                     //key = Integer.parseInt(line.split(" ")[1]);
                     //System.out.println("hello");
@@ -105,7 +109,7 @@ public class Console {
                     commands.get(line.split(" ")[0]).execute(line.split(" ")[0], Integer.parseInt(line.split(" ")[1]));
                 }
             } catch (NumberFormatException e) {
-                System.out.println("под id подразумевается число большее нуля");
+                Server.out_to_client += ("под id подразумевается число большее нуля");
             }
 
         } else if (commands.containsKey(line)) {
@@ -114,7 +118,7 @@ public class Console {
             path = line.split(" ")[1];
             commands.get(line.split(" ")[0]).execute(line.split(" ")[0], path);
         } else {
-            System.out.println("Проблема с командой, возможная рекурсия");
+            Server.out_to_client += ("Проблема с командой, возможная рекурсия");
         }
 
 

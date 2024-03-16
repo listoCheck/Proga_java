@@ -1,8 +1,5 @@
 package lab5.Client;
 
-import lab5.Server.ifmo.Color;
-import lab5.Server.ifmo.DragonCharacter;
-import lab5.Server.ifmo.DragonType;
 
 /**
  * класс для проверки команды на валидность

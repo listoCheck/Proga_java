@@ -5,8 +5,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.Scanner;
 
-public class Client {
-
+public class Client implements Serializable{
     private static Socket clientSocket; //сокет для общения
     private static BufferedReader in; // поток чтения из сокета
     public static boolean flag = true;
@@ -26,34 +25,34 @@ public class Client {
                 // писать туда же
                 out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
 
-                System.out.println("Вы что-то хотели сказать? Введите это здесь:");
+                System.out.println("Введите 'help', чтобы узнать возможные команды:");
 
                 while (true) {
                     // Ждем пока клиент что-нибудь напишет в консоль
                     String word = scanner.nextLine();
-                    if (word.equals("exit")) {
+                    MyObject obj = new MyObject(word);
+                    if (word.contains("insert") && (word.split(" ").length > 1 && !word.split(" ")[1].isEmpty())){
+                        //out.write(word);
+                        //MyObject obj = new MyObject(word);
+                        out.write(obj.getName() + " :::" + newDragon.addNew());
+                        out.flush();
+                    }else if (word.contains("update") && (word.split(" ").length > 1 && !word.split(" ")[1].isEmpty())){
+                        //MyObject obj = new MyObject(word);
+                        out.write(obj.getName() + " :::" + newDragon.addNew());
+                        out.flush();
+                    }else if (word.contains("exit_server") || word.contains("save")){
+                        System.out.println("У вас нет прав администратора, чтобы управлять сервером");
+                        //continue;
+                    }else{
+                        out.write(obj.getName() + "\n");
+                        out.flush();
+                    }
+                    if (word.equals("exit_server")) {
                         System.out.println("Клиент был закрыт...");
                         flag = false;
                         break;
                     }
-                    if (word.contains("insert") && (word.split(" ").length > 1 && !word.split(" ")[1].isEmpty())){
-                        //out.write(word);
-                        out.write(word + " :::" + newDragon.addNew());
-                        out.flush();
-                    }
-                    if (word.contains("update") && (word.split(" ").length > 1 && !word.split(" ")[1].isEmpty())){
-                        out.write(word + " :::" + newDragon.addNew());
-                        out.flush();
-                    }
-                    if (!word.contains("save")) {
-                        out.write(word + "\n"); // отправляем сообщение на сервер
-                        out.flush();
-                    }else{
-                        System.out.println("У вас нет прав администратора, чтобы сохранять коллекцию((");
-                        continue;
-                    }
-
-                    String serverWord = in.readLine(); // ждем, что скажет сервер
+                    String serverWord = new lab5.Client.MyObject(in.readLine()).getName(); // ждем, что скажет сервер
                     System.out.println("Ответ сервера: "); // получив - выводим на экран
                     if (serverWord == null){
                         System.out.println("Просим прощения, непредвиденная ошибка");

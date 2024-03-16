@@ -5,7 +5,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.Scanner;
 
-public class Admin {
+public class Admin implements Serializable{
 
     private static Socket clientSocket; //сокет для общения
     private static BufferedReader in; // поток чтения из сокета
@@ -17,7 +17,7 @@ public class Admin {
         int retries = 0;
         NewDragon newDragon = new NewDragon();
         System.out.println("Здравствуйте, админ!");
-        System.out.println("Вы что-то хотели сказать? Введите это здесь:");
+        System.out.println("Введите 'help', чтобы узнать возможные команды:");
         while (retries < MAX_RETRIES && flag) {
             try {
                 clientSocket = new Socket("localhost", 6789); // этой строкой мы запрашиваем
@@ -40,7 +40,11 @@ public class Admin {
                     }
                     out.write(word + "\n"); // отправляем сообщение на сервер
                     out.flush();
-
+                    if (word.equals("exit_server")) {
+                        System.out.println("Клиент был закрыт...");
+                        flag = false;
+                        break;
+                    }
                     String serverWord = in.readLine(); // ждем, что скажет сервер
                     System.out.println("Ответ сервера: "); // получив - выводим на экран
                     if (serverWord == null) {
@@ -49,12 +53,6 @@ public class Admin {
                         for (String i : serverWord.split("::")) {
                             System.out.println(i);
                         }
-                    }
-
-                    if (word.equals("exit")) {
-                        System.out.println("Клиент был закрыт...");
-                        flag = false;
-                        break;
                     }
                 }
             } catch (SocketException e) {

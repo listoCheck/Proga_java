@@ -1,2 +1,2 @@
 show
-execute C:\Users\admin\IdeaProjects\lab2sem\src\lab5\file\script.txt
+execute C:\Users\admin\IdeaProjects\lab2sem\src\lab5\Server\file\script.txt
