@@ -1,4 +1,4 @@
-package lab5.Client;
+package lab5.Client.Types;
 
 public enum DragonCharacter {
     CUNNING,

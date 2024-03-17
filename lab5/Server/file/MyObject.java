@@ -1,4 +1,4 @@
-package lab5.Server;
+package lab5.Server.file;
 
 import java.io.Serializable;
 

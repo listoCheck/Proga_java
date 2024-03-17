@@ -1,4 +1,4 @@
-package lab5.Client;
+package lab5.Client.Types;
 
 
 /**
@@ -76,7 +76,7 @@ public class ComandCheck {
                     return false;
                 }
             } catch (NumberFormatException e) {
-                System.out.println("значение age должно быть integer");
+                System.out.println("значение cave должно быть integer");
                 return false;
             }
         }

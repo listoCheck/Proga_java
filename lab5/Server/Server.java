@@ -1,34 +1,19 @@
 package lab5.Server;
 
-import lab5.Server.file.HandleFile;
+import lab5.Server.file.MyObject;
 import lab5.Server.file.WriteFile;
-import lab5.Server.ifmo.Dragon;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Set;
 
 public class Server implements Serializable{
 
     private static ServerSocket server; // серверсокет
     public static FileWriter log;
-    /*
-    static {
-        try {
-            writer = new FileWriter("C:\\Users\\admin\\IdeaProjects\\lab2sem\\src\\lab5\\Server\\log.txt");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-     */
-
     private static BufferedReader in; // поток чтения из сокета
     private static BufferedWriter out; // поток записи в сокет
-
     static ArrayList<Socket> cookies = new ArrayList<>();
     public static String out_to_client = "";
 
@@ -36,6 +21,7 @@ public class Server implements Serializable{
     }
 
     public static void main(String[] args) throws IOException {
+        WriteFile.WRITE_FILE.writeFileInMain();
         //Scanner sc = new Scanner(System.in);
         log = new FileWriter("C:\\Users\\admin\\IdeaProjects\\lab2sem\\src\\lab5\\Server\\log.txt", true);
         //try {
@@ -46,7 +32,7 @@ public class Server implements Serializable{
         //} catch (IOException e) {
         //    Server.out_to_client += ("Ошибка при записи в файл: " + e.getMessage());
         //}
-        WriteFile.WRITE_FILE.WriteFileInMain();
+        //WriteFile.WRITE_FILE.WriteFileInMain();
         try {
             server = new ServerSocket(6789); // серверсокет прослушивает порт 4004
             System.out.println("Сервер запущен!");
@@ -57,7 +43,7 @@ public class Server implements Serializable{
                 Socket clientSocket = server.accept(); // accept() будет ждать пока
                 cookies.add(clientSocket);
                 for (Socket client : cookies) {
-                    new Thread(new ClientHandler(client)).start(); // создаем и запускаем новый поток для обработки клиента
+                    new Thread(new ClientHandler(client)).start();
                 }
             }
         } catch (IOException e) {

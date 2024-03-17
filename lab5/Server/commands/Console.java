@@ -50,7 +50,7 @@ public class Console {
             if (line.contains(":::")){
                 WriteFile.WRITE_FILE.insert(line);
             }
-            if (keys.contains(line.split(" ")[0])) {
+            else if (keys.contains(line.split(" ")[0])) {
                 commands_ref(line);
             } else {
                 Server.out_to_client += ("Команда не найдна");

@@ -6,7 +6,7 @@
 			<x>324.0</x>
 			<y>56.0</y>
 		</coordinates>
-		<creationdate>2024-03-13T22:29:35.186409100+03:00[Europe/Moscow]</creationdate>
+		<creationdate>2024-03-17T20:51:00.260470600+03:00[Europe/Moscow]</creationdate>
 		<age>324</age>
 		<color>RED</color>
 		<type>AIR</type>
@@ -20,7 +20,7 @@
 			<x>342.0</x>
 			<y>56.0</y>
 		</coordinates>
-		<creationdate>2024-03-13T22:29:35.195938900+03:00[Europe/Moscow]</creationdate>
+		<creationdate>2024-03-17T20:51:00.272220600+03:00[Europe/Moscow]</creationdate>
 		<age>345</age>
 		<color>RED</color>
 		<type>WATER</type>
@@ -34,7 +34,7 @@
 			<x>234.0</x>
 			<y>3245.0</y>
 		</coordinates>
-		<creationdate>2024-03-13T22:29:35.196994700+03:00[Europe/Moscow]</creationdate>
+		<creationdate>2024-03-17T20:51:00.272220600+03:00[Europe/Moscow]</creationdate>
 		<age>546</age>
 		<color>RED</color>
 		<type>AIR</type>
@@ -48,7 +48,7 @@
 			<x>324.0</x>
 			<y>67.0</y>
 		</coordinates>
-		<creationdate>2024-03-13T22:29:35.196994700+03:00[Europe/Moscow]</creationdate>
+		<creationdate>2024-03-17T20:51:00.272220600+03:00[Europe/Moscow]</creationdate>
 		<age>65</age>
 		<color>YELLOW</color>
 		<type>AIR</type>
@@ -62,7 +62,7 @@
 			<x>3.0</x>
 			<y>324.0</y>
 		</coordinates>
-		<creationdate>2024-03-13T22:29:35.196994700+03:00[Europe/Moscow]</creationdate>
+		<creationdate>2024-03-17T20:51:00.273216900+03:00[Europe/Moscow]</creationdate>
 		<age>45</age>
 		<color>RED</color>
 		<type>WATER</type>
@@ -76,11 +76,25 @@
 			<x>-123.0</x>
 			<y>56789.0</y>
 		</coordinates>
-		<creationdate>2024-03-13T22:29:35.197993500+03:00[Europe/Moscow]</creationdate>
+		<creationdate>2024-03-17T20:51:00.273216900+03:00[Europe/Moscow]</creationdate>
 		<age>234</age>
 		<color>RED</color>
 		<type>WATER</type>
 		<character>EVIL</character>
 		<cave>23</cave>
+	</Dragon>
+	<Dragon>
+		<id>324</id>
+		<name>nfjrae</name>
+		<coordinates>
+			<x>324.0</x>
+			<y>43.0</y>
+		</coordinates>
+		<creationdate>2024-03-17T20:51:00.273216900+03:00[Europe/Moscow]</creationdate>
+		<age>123</age>
+		<color>RED</color>
+		<type>WATER</type>
+		<character>EVIL</character>
+		<cave>345</cave>
 	</Dragon>
 </Dragons>

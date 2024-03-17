@@ -23,7 +23,7 @@ public class WriteFile implements Functional{
     /**
      * метод для чтения данных из xml файла
      */
-    public void WriteFileInMain() {
+    public void writeFileInMain() {
         ReadFile rf = new ReadFile();
         dragons = rf.readXml();
         //System.out.println(dragons);

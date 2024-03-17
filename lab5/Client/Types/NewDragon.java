@@ -1,6 +1,8 @@
-package lab5.Client;
+package lab5.Client.Types;
 
 //import lab5.Server.file.WriteFile;
+
+import lab5.Client.Types.ComandCheck;
 
 import java.time.ZonedDateTime;
 import java.util.Scanner;
@@ -22,15 +24,21 @@ public class NewDragon {
                 String value = sc.nextLine();
                 while (true) {
                     if (new ComandCheck().check(i, value)) {
-                        values += value + ",";
+                        if (i == 8){
+                            values += value;
+                        }else {
+                            values += value + ",";
+                        }
                         //System.out.println(values);
                         break;
+
                     } else {
                         value = sc.nextLine();
                     }
                 }
             }
         }
+        //System.out.println(values);
         return values;
     }
 }
